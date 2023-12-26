@@ -11,7 +11,7 @@ export default function ItemList({ itemData, removeItem, itemPacked }) {
     <li>
       <input type="checkbox" name="" checked={itemData.completed} onChange={handleCheck} />
       <span style={{ textDecoration: itemData.completed ? "line-through" : "none" }}>
-        {itemData.number} {itemData.item}
+        {itemData.quantity} {itemData.description}
       </span>
       <button onClick={handleRemove}>&times;</button>
     </li>

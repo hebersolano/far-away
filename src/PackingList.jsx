@@ -1,7 +1,7 @@
 import ActionsList from "./ActionsList";
 import ItemList from "./ItemList";
 
-export default function PackingList({ itemsData, removeItem, itemPacked }) {
+export default function PackingList({ itemsData, removeItem, itemPacked, sortItems }) {
   return (
     <div className="list">
       <ul>
@@ -9,7 +9,7 @@ export default function PackingList({ itemsData, removeItem, itemPacked }) {
           <ItemList key={item.id} itemData={item} removeItem={removeItem} itemPacked={itemPacked} />
         ))}
       </ul>
-      <ActionsList />
+      <ActionsList sortItems={sortItems} />
     </div>
   );
 }

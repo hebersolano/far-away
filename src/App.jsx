@@ -5,7 +5,7 @@ import PackingList from "./PackingList";
 import Stats from "./Stats";
 import { v4 as uuid } from "uuid";
 
-const initData = JSON.parse(localStorage.getItem("far-away"));
+const initData = JSON.parse(localStorage.getItem("far-away")) || [];
 
 function App() {
   const [appState, setAppState] = useState(initData);
@@ -18,7 +18,7 @@ function App() {
 
   const ctrl = {
     addItem(data) {
-      setAppState((state) => [...state, { ...data, id: uuid(), completed: false }]);
+      setAppState((state) => [...state, { ...data, id: uuid(), completed: false, order: state.length + 1 }]);
     },
 
     removeItem(id) {
@@ -30,9 +30,31 @@ function App() {
         const newState = [...state];
         const i = state.findIndex((item) => item.id == id);
         newState[i].completed = !state[i].completed;
-        console.log(newState[i]);
         return newState;
       });
+    },
+
+    sortItems: {
+      sortByAddition() {
+        setAppState((state) => [...state].sort((a, b) => a.order - b.order));
+      },
+
+      sortByDescription() {
+        setAppState((state) =>
+          [...state].sort((a, b) => {
+            if (a.description > b.description) {
+              return 1;
+            }
+            if (a.description < b.description) {
+              return -1;
+            }
+          })
+        );
+      },
+
+      sortByStatus() {
+        setAppState((state) => [...state].sort((a, _) => (a.completed ? -1 : 1)));
+      },
     },
   };
 
@@ -40,7 +62,12 @@ function App() {
     <div className="app">
       <Logo />
       <Form addItem={ctrl.addItem} />
-      <PackingList itemsData={appState} removeItem={ctrl.removeItem} itemPacked={ctrl.itemPacked} />
+      <PackingList
+        itemsData={appState}
+        removeItem={ctrl.removeItem}
+        itemPacked={ctrl.itemPacked}
+        sortItems={ctrl.sortItems}
+      />
       <Stats />
     </div>
   );
