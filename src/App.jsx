@@ -34,26 +34,34 @@ function App() {
       });
     },
 
+    removeAllItems() {
+      const res = prompt("Do you want remove all the items? (y/n)").toLocaleLowerCase();
+      if (res == "y") {
+        setAppState(() => []);
+      } else if (res == "n") {
+        return;
+      } else {
+        alert("Invalid input");
+      }
+    },
+
     sortItems: {
       sortByAddition() {
-        setAppState((state) => [...state].sort((a, b) => a.order - b.order));
+        setAppState((state) => [...state].sort((a, b) => b.order - a.order));
       },
 
       sortByDescription() {
         setAppState((state) =>
           [...state].sort((a, b) => {
-            if (a.description > b.description) {
-              return 1;
-            }
-            if (a.description < b.description) {
-              return -1;
-            }
+            if (a.description > b.description) return 1;
+            if (a.description < b.description) return -1;
+            return 0;
           })
         );
       },
 
       sortByStatus() {
-        setAppState((state) => [...state].sort((a, _) => (a.completed ? -1 : 1)));
+        setAppState((state) => [...state].sort((a) => (a.completed ? 1 : -1)));
       },
     },
   };
@@ -67,8 +75,9 @@ function App() {
         removeItem={ctrl.removeItem}
         itemPacked={ctrl.itemPacked}
         sortItems={ctrl.sortItems}
+        removeAllItems={ctrl.removeAllItems}
       />
-      <Stats />
+      <Stats itemsData={appState} />
     </div>
   );
 }

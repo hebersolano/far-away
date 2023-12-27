@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function ActionsList({ sortItems }) {
+export default function ActionsList({ sortItems, removeAllItems }) {
   const [lastSortType, setLastSortType] = useState("by-addition");
 
   function handleChange(evt) {
@@ -18,7 +18,7 @@ export default function ActionsList({ sortItems }) {
         <option value="by-description">Sort by description</option>
         <option value="by-package-status">Sort by package status</option>
       </select>
-      <button>Clear List</button>
+      <button onClick={removeAllItems}>Clear List</button>
     </div>
   );
 }
