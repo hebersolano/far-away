@@ -6,7 +6,7 @@ export default function PackingList({ itemsData, removeItem, itemPacked, sortIte
     <div className="list">
       <ul>
         {itemsData.map((item) => (
-          <ItemList key={item.id} itemData={item} removeItem={removeItem} itemPacked={itemPacked} />
+          <ItemList key={item.uuid} itemData={item} removeItem={removeItem} itemPacked={itemPacked} />
         ))}
       </ul>
       <ActionsList sortItems={sortItems} removeAllItems={removeAllItems} />

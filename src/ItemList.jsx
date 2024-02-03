@@ -1,10 +1,10 @@
 export default function ItemList({ itemData, removeItem, itemPacked }) {
   function handleRemove() {
-    removeItem(itemData.id);
+    removeItem(itemData.uuid);
   }
 
   function handleCheck(evt) {
-    itemPacked(itemData.id);
+    itemPacked(itemData.uuid);
   }
 
   return (
